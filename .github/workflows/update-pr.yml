@@ -15,8 +15,8 @@ jobs:
         uses: BMCooley/pr-update-action@v3.1
         with:
           repo-token: "${{ secrets.GITHUB_TOKEN }}"
-          head-branch-regex-arr: '["^\\w-\\d*?(?=_)", ["\?(.*)", true]]'
-          base-branch-regex-arr: '["^\\w-\\d*?(?=_)", ["\?(.*)", true]]'
+          head-branch-regex-arr: "[\"^\\w-\\d*?(?=_)\", [\"\\?(.*)\", true]]"
+          base-branch-regex-arr: "[\"^\\w-\\d*?(?=_)\", [\"\\?(.*)\", true]]"
           title-template: "%head[0]% - %head[1]%"
           body-template: "some:/link/withcardNumber/%base[0]%/%base[1]%"
   update_pr_outputs:
