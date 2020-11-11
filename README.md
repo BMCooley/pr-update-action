@@ -16,7 +16,10 @@ Create a workflow yaml file (for e.g. `.github/workflows/update-pr.yml`). See [C
 
 #### Optional
 - `base-branch-regex-arr`: array of regex to match text from the base branch name
-- `head-branch-regex-arr`: array of regex to match text from the head branch name
+  - the regex patterns can be replaced with a tuple
+  [ regex, convertMatchToLowerCase ]
+    - ['some_snake_case', true] would match 'some_snake_case' but return "some snake case")
+- `head-branch-regex-arr`: same as base-branch but applies to the head branch
 - `title-template`: text template to update title with
 - `title-update-action`: whether to prefix or suffix or replace title with title-template (default: `prefix`)
 - `title-insert-space`: whether to insert a space between title and its prefix or suffix (default: `true`)

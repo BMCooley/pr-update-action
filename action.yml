@@ -9,11 +9,12 @@ inputs:
     description: "The GITHUB_TOKEN secret"
     required: true
   base-branch-regex-arr:
-    description: "An Array of Regex to match text in the base branch name"
+    description: "array of regex to match text from the base branch name the regex patterns can be replaced with a tuple [ regex, convertMatchToLowerCase ]
+['some_snake_case', true] would match 'some_snake_case' but return "some snake case")"
     required: false
     default: ""
   head-branch-regex-arr:
-    description: "An Array of Regex to match text in the head branch name"
+    description: "Same as base-branch-regex-arr"
     required: false
     default: ""
   title-template:
