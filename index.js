@@ -1,5 +1,6 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
+const lowerCase = require('lodash.lowercase');
 
 
 async function run() {
@@ -39,8 +40,10 @@ async function run() {
       const baseBranch = github.context.payload.pull_request.base.ref;
       core.info(`Base branch: ${baseBranch}`);
 
-      matches.base = baseBranchRegexArr.map(regex => {
-        const match = baseBranch.match(new RegExp(regex))
+      matches.base = baseBranchRegexArr.map(matcher => {
+        const [regex, shouldLowerCase] = Array.isArray(matcher) ? matcher : [matcher]
+        let match = baseBranch.match(new RegExp(regex))
+        if (shouldLowerCase) match = lowerCase(match);
         if (!match) {
           core.setFailed(`Base branch name does not match given regex: ${regex}`);
           matchFail = true;
@@ -58,8 +61,9 @@ async function run() {
       const headBranch = github.context.payload.pull_request.head.ref;
       core.info(`Head branch: ${headBranch}`);
 
-      matches.head = headBranchRegexArr.map(regex => {
-        const match = headBranch.match(new RegExp(regex))
+      matches.head = headBranchRegexArr.map(matcher => {
+        const [regex, shouldLowerCase] = Array.isArray(matcher) ? matcher : [matcher]
+        let match = baseBranch.match(new RegExp(regex))
         if (!match) {
           core.setFailed(`Head branch name does not match given regex: ${regex}`);
           matchFail = true;
