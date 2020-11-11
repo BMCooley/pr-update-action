@@ -12,12 +12,15 @@ jobs:
       bodyUpdated: ${{ steps.update_pr.outputs.bodyUpdated }}
     steps:
       - id: update_pr
-        uses: BMCooley/pr-update-action@v2
+        uses: BMCooley/pr-update-action@v3.1
         with:
           repo-token: "${{ secrets.GITHUB_TOKEN }}"
-          head-branch-regex: '[a-z\d-_.\/]+'
-          title-template: "[updated-by-action]"
-          body-template: "[Updated by Pull Request Updater action]"
+          head-branch-regex-arr: "["^\\w-\\d*?(?=_)", ["\?(.*)
+", true]]"
+          base-branch-regex-arr: "["^\\w-\\d*?(?=_)", ["\?(.*)
+", true]]"
+          title-template: "%head[0]% - %head[1]%"
+          body-template: "some:/link/withcardNumber/%base[0]%/%base[1]"
   update_pr_outputs:
     runs-on: ubuntu-latest
     needs: update_pr
