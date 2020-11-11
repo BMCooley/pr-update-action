@@ -12,7 +12,7 @@ jobs:
       bodyUpdated: ${{ steps.update_pr.outputs.bodyUpdated }}
     steps:
       - id: update_pr
-        uses: BMCooley/pr-update-action@v3.1
+        uses: BMCooley/pr-update-action@v3.1.1
         with:
           repo-token: "${{ secrets.GITHUB_TOKEN }}"
           head-branch-regex-arr: '["^\w-\d*?(?=_)", ["\?(.*)", true]]'
