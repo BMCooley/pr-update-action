@@ -63,7 +63,8 @@ async function run() {
 
       matches.head = headBranchRegexArr.map(matcher => {
         const [regex, shouldLowerCase] = Array.isArray(matcher) ? matcher : [matcher]
-        let match = baseBranch.match(new RegExp(regex))
+        let match = headBranch.match(new RegExp(regex))
+        if (shouldLowerCase) match = lowerCase(match);
         if (!match) {
           core.setFailed(`Head branch name does not match given regex: ${regex}`);
           matchFail = true;
@@ -83,8 +84,6 @@ async function run() {
       repo: github.context.repo.repo,
       pull_number: github.context.payload.pull_request.number,
     }
-
-    const upperCase = (upperCase, text) => upperCase ? text.toUpperCase() : text;
 
     const title = github.context.payload.pull_request.title || '';
     let processedTitleText = inputs.titleTemplate;

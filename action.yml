@@ -8,18 +8,15 @@ inputs:
   repo-token:
     description: "The GITHUB_TOKEN secret"
     required: true
-  base-branch-regex:
-    description: "Regex to match text in the base branch name"
+  base-branch-regex-arr:
+    description: "array of regex to match text from the base branch name the regex patterns can be replaced with a tuple [ regex, convertMatchToLowerCase ]
+['some_snake_case', true] would match 'some_snake_case' but return "some snake case")"
     required: false
     default: ""
-  head-branch-regex:
-    description: "Regex to match text in the head branch name"
+  head-branch-regex-arr:
+    description: "Same as base-branch-regex-arr"
     required: false
     default: ""
-  lowercase-branch:
-    description: "Should lowercase branch name before matching text"
-    required: false
-    default: "true"
   title-template:
     description: "Title template where matched text from branch gets substituted in. Allowed tokens: %basebranch% | %headbranch%"
     required: false
@@ -30,14 +27,6 @@ inputs:
     default: "prefix"
   title-insert-space:
     description: "Should insert a space between title and its prefix or suffix"
-    required: false
-    default: "true"
-  title-uppercase-base-match:
-    description: "Should uppercase matched text from base branch in title"
-    required: false
-    default: "true"
-  title-uppercase-head-match:
-    description: "Should uppercase matched text from head branch in title"
     required: false
     default: "true"
   body-template:
@@ -52,14 +41,6 @@ inputs:
     description: "Number of newlines to separate body and its prefix or suffix"
     required: false
     default: "2"
-  body-uppercase-base-match:
-    description: "Should uppercase matched text from base branch in body"
-    required: false
-    default: "true"
-  body-uppercase-head-match:
-    description: "Should uppercase matched text from head branch in body"
-    required: false
-    default: "true"
 outputs:
   baseMatch:
     description: "Matched text from base branch if any"
